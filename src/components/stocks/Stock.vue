@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import swal from 'vue-sweetalert2';
-
 export default {
   props: {
     stock: {
@@ -53,14 +51,9 @@ export default {
       };
 
       console.log(order);
-      // this.$swal({
-      //   icon: 'success',
-      //   title: 'Tudo certo',
-      //   text: `Você comprou ${this.quantity} ações`,
-      // });
 
-      swal({
-        type: 'success',
+      this.$swal({
+        icon: 'success',
         title: 'Tudo certo',
         text: `Você comprou ${this.quantity} ações`,
       });

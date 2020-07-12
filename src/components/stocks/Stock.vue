@@ -55,7 +55,7 @@ export default {
       this.$swal({
         icon: 'success',
         title: 'Tudo certo',
-        text: `Você comprou ${this.quantity} ações`,
+        text: `Você comprou ${this.quantity} ações do(a) ${this.stock.name}`,
       });
 
       this.quantity = 0;

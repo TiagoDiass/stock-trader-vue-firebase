@@ -5,31 +5,31 @@ export default {
   },
 
   mutations: {
-    buyStock(state, { stockId, quantity, stockPrice }) {
+    buyStock(state, { stockId, stockQuantity, stockPrice }) {
       const record = state.stocks.find(element => element.id == stockId);
 
       if (record) {
-        record.quantity += quantity;
+        record.quantity += stockQuantity;
       } else {
         state.stocks.push({
           id: stockId,
-          quantity: quantity,
+          quantity: stockQuantity,
         });
       }
 
-      state.funds -= stockPrice * quantity;
+      state.funds -= stockPrice * stockQuantity;
     },
 
-    sellStock(state, { stockId, quantity, stockPrice }) {
+    sellStock(state, { stockId, stockQuantity, stockPrice }) {
       const record = state.stocks.find(element => element.id == stockId);
 
-      if (record.quantity > quantity) {
-        record.quantity -= quantity;
+      if (record.quantity > stockQuantity) {
+        record.quantity -= stockQuantity;
       } else {
         state.stocks.splice(state.stocks.indexOf(record), 1);
       }
 
-      state.funds += stockPrice * quantity;
+      state.funds += stockPrice * stockQuantity;
     },
   },
 

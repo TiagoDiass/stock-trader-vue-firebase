@@ -14,7 +14,7 @@ export default {
   mounted() {
     if (!this.stocks.length) {
       this.$swal({
-        icon: 'info',
+        icon: 'error',
         title: 'Ops...',
         text:
           'Parece que você não tem nenhuma ação, compre algumas e depois volte aqui para vê-lás',

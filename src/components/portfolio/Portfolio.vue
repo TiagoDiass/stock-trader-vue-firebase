@@ -12,11 +12,12 @@ export default {
   components: { Stock },
 
   mounted() {
-    if (this.stocks == []) {
+    if (!this.stocks.length) {
       this.$swal({
-        icon: 'info',
-        title: 'Opss...',
-        text: 'Parece que você não tem nenhuma ação no momento',
+        icon: 'error',
+        title: 'Ops...',
+        text:
+          'Parece que você não tem nenhuma ação, compre algumas e depois volte aqui para vê-lás',
       });
     }
   },

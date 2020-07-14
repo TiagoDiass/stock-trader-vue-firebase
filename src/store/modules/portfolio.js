@@ -29,7 +29,9 @@ export default {
         state.stocks.splice(state.stocks.indexOf(record), 1);
       }
 
-      state.funds += stockPrice * stockQuantity;
+      // Caso o usuário tente vender mais do que ele já tem
+      const correctQuantity = stockQuantity > record.quantity ? record.quantity : stockQuantity;
+      state.funds += stockPrice * correctQuantity;
     },
   },
 

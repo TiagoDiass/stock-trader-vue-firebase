@@ -25,12 +25,22 @@
           </v-list-tile>
         </v-list>
       </v-menu>
+      <v-layout align-center>
+        <span class="text-uppercase gray--text text--darken-2"> Saldo: {{ funds }} </span>
+      </v-layout>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from 'vuex';
+export default {
+  computed: {
+    ...mapGetters({
+      funds: 'getFunds',
+    }),
+  },
+};
 </script>
 
 <style></style>

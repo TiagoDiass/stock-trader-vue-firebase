@@ -12,6 +12,7 @@
     <v-card>
       <v-container fill-height>
         <v-text-field
+          @keydown.enter="sellStock"
           label="Quantidade"
           type="number"
           v-model.number="quantity"

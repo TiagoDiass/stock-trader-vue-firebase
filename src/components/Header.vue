@@ -14,18 +14,8 @@
 
     <v-toolbar-items>
       <v-btn flat @click="endDay">Finalizar Dia</v-btn>
-      <v-menu offset-y>
-        <v-btn flat slot="activator">Salvar & Carregar</v-btn>
-        <v-list>
-          <v-list-tile @click="saveData">
-            <v-list-tile-title>Salvar Dados</v-list-tile-title>
-          </v-list-tile>
+      <v-btn flat class="red--text darken-1" @click="restartApp">Reiniciar aplicação</v-btn>
 
-          <v-list-tile @click="reiniciarApp">
-            <v-list-tile-title class="red--text darken-1">Reiniciar aplicação</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
       <v-layout align-center>
         <span class="text-uppercase gray--text text--darken-2">
           Saldo: {{ funds | currency }}
@@ -53,10 +43,47 @@ export default {
       randomizeStocks: 'randomizeStocks',
       loadData: 'loadData',
       initStocks: 'initStocks',
+      saveDataAction: 'saveData',
     }),
 
     endDay() {
-      this.randomizeStocks();
+      this.$swal({
+        icon: 'warning',
+        title: 'Tem certeza?',
+        text: 'Uma vez que você finalize o dia, o preço das ações mudarão',
+        dangerMode: true,
+        buttons: {
+          cancel: 'Cancelar',
+          ok: {
+            text: 'Sim, tenho certeza',
+            value: true,
+          },
+        },
+      }).then(value => {
+        if (value) {
+          this.randomizeStocks();
+
+          const globalState = {
+            funds: this.funds,
+            stocksPortfolio: this.stocksPortfolio,
+            stocks: this.stocks,
+          };
+
+          this.saveDataAction(globalState);
+
+          this.$swal({
+            icon: 'success',
+            title: 'Tudo certo',
+            text: 'O dia foi finalizado, veja o novo preço das ações',
+          });
+        } else {
+          this.$swal({
+            icon: 'info',
+            title: 'Okay',
+            text: 'O dia não foi finalizado',
+          });
+        }
+      });
     },
 
     saveData() {
@@ -95,7 +122,7 @@ export default {
       });
     },
 
-    reiniciarApp() {
+    restartApp() {
       this.$swal({
         icon: 'warning',
         title: 'Tem certeza?',

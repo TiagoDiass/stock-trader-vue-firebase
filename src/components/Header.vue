@@ -20,8 +20,13 @@
           <v-list-tile @click="saveData">
             <v-list-tile-title>Salvar Dados</v-list-tile-title>
           </v-list-tile>
+
           <v-list-tile @click="loadDataLocal">
             <v-list-tile-title>Carregar Dados</v-list-tile-title>
+          </v-list-tile>
+
+          <v-list-tile>
+            <v-list-tile-title class="red--text darken-1">Reiniciar aplicação</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -56,15 +61,38 @@ export default {
     },
 
     saveData() {
-      const funds = this.funds;
-      const stocksPortfolio = this.stocksPortfolio;
-      const stocks = this.stocks;
-
-      this.$httpClient.put('data.json', { funds, stocksPortfolio, stocks });
       this.$swal({
-        icon: 'success',
-        title: 'Tudo certo',
-        text: 'Os dados foram salvos',
+        icon: 'warning',
+        title: 'Tem certeza?',
+        text: 'Uma vez que você salvar os dados, essa ação não poderá ser desfeita',
+        dangerMode: true,
+        buttons: {
+          cancel: 'Cancelar',
+          ok: {
+            text: 'Sim, tenho certeza',
+            value: true,
+          },
+        },
+      }).then(value => {
+        if (value) {
+          const funds = this.funds;
+          const stocksPortfolio = this.stocksPortfolio;
+          const stocks = this.stocks;
+
+          this.$httpClient.put('data.json', { funds, stocksPortfolio, stocks });
+          this.$swal({
+            icon: 'success',
+            title: 'Tudo certo',
+            text: 'Os dados foram salvos',
+          });
+        } else {
+          this.$swal({
+            icon: 'info',
+            title: 'Okay',
+            text:
+              'Os dados não foram salvos, certifique-se de fazer tudo o que quer antes de salvá-los',
+          });
+        }
       });
     },
 

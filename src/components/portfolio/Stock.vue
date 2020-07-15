@@ -17,14 +17,15 @@
           type="number"
           v-model.number="quantity"
           hint="Selecione uma quantia inteira"
+          :error="insufficientQuantity || !Number.isInteger(quantity)"
         ></v-text-field>
 
         <v-btn
           @click="sellStock"
           class="blue darken-3 white--text"
-          :disabled="quantity <= 0 || !Number.isInteger(quantity)"
+          :disabled="insufficientQuantity || quantity <= 0 || !Number.isInteger(quantity)"
         >
-          Vender
+          {{ insufficientQuantity ? 'Insuficiente' : 'Vender' }}
         </v-btn>
       </v-container>
     </v-card>
@@ -46,6 +47,12 @@ export default {
     quantity: 0,
   }),
 
+  computed: {
+    insufficientQuantity() {
+      return this.quantity > this.stock.quantity;
+    },
+  },
+
   methods: {
     ...mapActions({
       sellStockAction: 'sellStock',
@@ -65,9 +72,7 @@ export default {
       this.$swal({
         icon: 'success',
         title: 'Tudo certo',
-        text: `Você vendeu ${
-          this.quantity > this.stock.quantity ? this.stock.quantity : this.quantity
-        } ações do(a) ${this.stock.name}`,
+        text: `Você vendeu ${this.quantity} ações do(a) ${this.stock.name}`,
       });
 
       this.quantity = 0;

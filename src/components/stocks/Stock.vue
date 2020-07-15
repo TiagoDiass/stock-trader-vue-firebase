@@ -15,15 +15,12 @@
           label="Quantidade"
           type="number"
           v-model.number="quantity"
+          :error="insufficientFunds || !Number.isInteger(quantity)"
           hint="Selecione uma quantia inteira"
         ></v-text-field>
 
-        <v-btn
-          @click="buyStock"
-          class="green darken-3 white--text"
-          :disabled="quantity <= 0 || !Number.isInteger(quantity)"
-        >
-          Comprar
+        <v-btn @click="buyStock" class="green darken-3 white--text" :disabled="validateStyle">
+          {{ insufficientFunds ? 'Insuficiente' : 'Comprar' }}
         </v-btn>
       </v-container>
     </v-card>
@@ -31,6 +28,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   props: {
     stock: {
@@ -42,6 +40,20 @@ export default {
   data: () => ({
     quantity: 0,
   }),
+
+  computed: {
+    ...mapGetters({
+      funds: 'getFunds',
+    }),
+
+    insufficientFunds() {
+      return this.quantity * this.stock.price > this.funds;
+    },
+
+    validateStyle() {
+      return this.insufficientFunds || this.quantity <= 0 || !Number.isInteger(this.quantity);
+    },
+  },
 
   methods: {
     buyStock() {

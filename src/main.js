@@ -7,12 +7,9 @@ import store from './store/store';
 
 import './plugins/vuetify';
 import './plugins/sweetAlert';
+import './filters';
 
 Vue.config.productionTip = false;
-
-Vue.filter('currency', value => {
-  return `R$ ${value.toLocaleString()}`
-})
 
 new Vue({
   router,

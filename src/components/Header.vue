@@ -17,7 +17,7 @@
       <v-menu offset-y>
         <v-btn flat slot="activator">Salvar & Carregar</v-btn>
         <v-list>
-          <v-list-tile>
+          <v-list-tile @click="saveData">
             <v-list-tile-title>Salvar Dados</v-list-tile-title>
           </v-list-tile>
           <v-list-tile>
@@ -40,6 +40,8 @@ export default {
   computed: {
     ...mapGetters({
       funds: 'getFunds',
+      stocksPortfolio: 'getStocksPortfolio',
+      stocks: 'getStocks',
     }),
   },
 
@@ -50,6 +52,14 @@ export default {
 
     endDay() {
       this.randomizeStocks();
+    },
+
+    saveData() {
+      const funds = this.funds;
+      const stocksPortfolio = this.stocksPortfolio;
+      const stocks = this.stocks;
+
+      this.$httpClient.put('data.json', { funds, stocksPortfolio, stocks });
     },
   },
 };

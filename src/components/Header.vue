@@ -20,7 +20,7 @@
           <v-list-tile @click="saveData">
             <v-list-tile-title>Salvar Dados</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile>
+          <v-list-tile @click="loadDataLocal">
             <v-list-tile-title>Carregar Dados</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -48,6 +48,7 @@ export default {
   methods: {
     ...mapActions({
       randomizeStocks: 'randomizeStocks',
+      loadData: 'loadData',
     }),
 
     endDay() {
@@ -60,6 +61,20 @@ export default {
       const stocks = this.stocks;
 
       this.$httpClient.put('data.json', { funds, stocksPortfolio, stocks });
+      this.$swal({
+        icon: 'success',
+        title: 'Tudo certo',
+        text: 'Os dados foram salvos',
+      });
+    },
+
+    loadDataLocal() {
+      this.loadData();
+      this.$swal({
+        icon: 'success',
+        title: 'Tudo certo',
+        text: 'Os dados foram carregados do banco de dados para a aplicação',
+      });
     },
   },
 };

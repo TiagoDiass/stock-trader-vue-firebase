@@ -7,6 +7,7 @@ import store from './store/store';
 
 import './plugins/vuetify';
 import './plugins/sweetAlert';
+import './plugins/axios';
 import './filters';
 
 Vue.config.productionTip = false;

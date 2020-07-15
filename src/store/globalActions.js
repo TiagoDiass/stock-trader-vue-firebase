@@ -14,4 +14,8 @@ export default {
       }
     });
   },
+
+  saveData(_, globalState) {
+    Vue.prototype.$httpClient.put('data.json', globalState);
+  },
 };

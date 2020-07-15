@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   props: {
@@ -48,6 +48,12 @@ export default {
   }),
 
   computed: {
+    ...mapGetters({
+      funds: 'getFunds',
+      stocksPortfolio: 'getStocksPortfolio',
+      stocks: 'getStocks',
+    }),
+
     insufficientQuantity() {
       return this.quantity > this.stock.quantity;
     },
@@ -56,6 +62,7 @@ export default {
   methods: {
     ...mapActions({
       sellStockAction: 'sellStock',
+      saveData: 'saveData',
     }),
 
     sellStock() {
@@ -66,6 +73,14 @@ export default {
       };
 
       this.sellStockAction(order);
+
+      const globalState = {
+        funds: this.funds,
+        stocksPortfolio: this.stocksPortfolio,
+        stocks: this.stocks,
+      };
+
+      this.saveData(globalState);
 
       this.$swal({
         icon: 'success',

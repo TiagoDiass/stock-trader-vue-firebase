@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 export default {
   props: {
     stock: {
@@ -44,6 +44,8 @@ export default {
   computed: {
     ...mapGetters({
       funds: 'getFunds',
+      stocksPortfolio: 'getStocksPortfolio',
+      stocks: 'getStocks',
     }),
 
     insufficientFunds() {
@@ -56,6 +58,11 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      buyStockAction: 'buyStock',
+      saveData: 'saveData',
+    }),
+
     buyStock() {
       const order = {
         stockId: this.stock.id,
@@ -63,7 +70,15 @@ export default {
         stockQuantity: this.quantity,
       };
 
-      this.$store.dispatch('buyStock', order);
+      this.buyStockAction(order);
+
+      const globalState = {
+        funds: this.funds,
+        stocksPortfolio: this.stocksPortfolio,
+        stocks: this.stocks,
+      };
+
+      this.saveData(globalState);
 
       this.$swal({
         icon: 'success',

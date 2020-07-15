@@ -1,4 +1,4 @@
-import stocks from '../../data/stocks';
+import stocks from '../../data/baseStocks';
 
 export default {
   state: {

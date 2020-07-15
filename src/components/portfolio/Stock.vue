@@ -67,8 +67,6 @@ export default {
 
       this.sellStockAction(order);
 
-      //Caso a quantidade que o usuário tenha tentado vender for maior que a quantidade de ações que ele tinha...
-
       this.$swal({
         icon: 'success',
         title: 'Tudo certo',

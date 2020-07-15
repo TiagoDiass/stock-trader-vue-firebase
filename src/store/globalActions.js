@@ -5,7 +5,6 @@ export default {
     Vue.prototype.$httpClient.get('data.json').then(resp => {
       const data = resp.data;
       if (data) {
-        console.log(data);
         commit('setStocks', data.stocks);
 
         commit('setPortfolio', {

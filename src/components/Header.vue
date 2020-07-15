@@ -21,11 +21,7 @@
             <v-list-tile-title>Salvar Dados</v-list-tile-title>
           </v-list-tile>
 
-          <v-list-tile @click="loadDataLocal">
-            <v-list-tile-title>Carregar Dados</v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile>
+          <v-list-tile @click="reiniciarApp">
             <v-list-tile-title class="red--text darken-1">Reiniciar aplicação</v-list-tile-title>
           </v-list-tile>
         </v-list>
@@ -41,6 +37,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import baseStocks from '../data/baseStocks';
+
 export default {
   computed: {
     ...mapGetters({
@@ -54,6 +52,7 @@ export default {
     ...mapActions({
       randomizeStocks: 'randomizeStocks',
       loadData: 'loadData',
+      initStocks: 'initStocks',
     }),
 
     endDay() {
@@ -96,12 +95,42 @@ export default {
       });
     },
 
-    loadDataLocal() {
-      this.loadData();
+    reiniciarApp() {
       this.$swal({
-        icon: 'success',
-        title: 'Tudo certo',
-        text: 'Os dados foram carregados do banco de dados para a aplicação',
+        icon: 'warning',
+        title: 'Tem certeza?',
+        text: 'Uma vez reiniciada, a aplicação voltará ao seu estado original',
+        dangerMode: true,
+        buttons: {
+          cancel: 'Cancelar',
+          ok: {
+            text: 'Sim, tenho certeza',
+            value: true,
+          },
+        },
+      }).then(value => {
+        if (value) {
+          const funds = 10000;
+          const stocksPortfolio = [];
+
+          this.$httpClient
+            .put('data.json', { funds, stocksPortfolio, stocks: baseStocks })
+            .then(() => {
+              this.loadData();
+            });
+
+          this.$swal({
+            icon: 'success',
+            title: 'Tudo certo',
+            text: 'A aplicação foi reiniciada',
+          });
+        } else {
+          this.$swal({
+            icon: 'info',
+            title: 'Okay',
+            text: 'A aplicação não foi reiniciada',
+          });
+        }
       });
     },
   },

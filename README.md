@@ -54,9 +54,6 @@ The aim of this project was practicing and fixing the concepts of Vue.js in my h
   :information_source: How to Run
 </h2>
 
-Siga os passos abaixo para rodar o projeto em sua máquina, antes de tudo, você precisa ter o Git, Node.js e o Yarn instalado em seu computador,
-quando tiver eles instalados, siga os seguintes passos:
-
 Follow the steps below to run the application on your computed, first of all, you'll need to have these tools installed on your computer: Git, Node.js, Yarn and the Vue-CLI<br>
 If you have all of these tools installed on your computer, just follow the steps below:
 

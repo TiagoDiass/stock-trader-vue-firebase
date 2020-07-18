@@ -80,7 +80,4 @@ this way you'll stop the app
 Hope you enjoyed this project :smiley:<br>
 :wave: [Get in touch!](https://www.linkedin.com/in/tiagodiass)
 
-### Autor: [Tiago Dias](https://tiagodiass.github.io)
-
-
-
+### Author: [Tiago Dias](https://tiagodiass.github.io)

@@ -59,10 +59,10 @@ If you have all of these tools installed on your computer, just follow the steps
 
 ```bash
 # Clone the repository in some directory of your computer
-$ git clone https://github.com/TiagoDiass/stock-trader.git
+$ git clone https://github.com/TiagoDiass/stock-trader-vue-firebase.git
 
 # Enter in the repository
-$ cd stock-trader
+$ cd stock-trader-vue-firebase
 
 # Install the dependencies
 $ yarn install

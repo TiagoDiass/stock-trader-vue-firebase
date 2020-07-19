@@ -42,7 +42,7 @@
   :dart: The project's objective
 </h2>
 
-The aim of this project was practicing and fixing the concepts of Vue.js in my head, I enjoyed building this app really much and I also loved the final result of it
+The aim of this project was practicing and fixing the concepts of Vue.js and Vuex(state manager for Vue.js apps) in my head, I enjoyed building this app really much and I also loved the final result
 
 <h2 id="final-result" name="final-result">
   :clipboard: Final Result
